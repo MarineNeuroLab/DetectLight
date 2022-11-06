@@ -83,6 +83,7 @@ def get_frame_values(video_files, percentile_value):
 def plot_frame_values(path,video_data):
     '''
     Plots the frame values for each frame (if frame_value contains multiple files, one plot is generated per file)
+    and saves the frame values in a .csv file (one .csv file per video file)
 
     Parameters
     ----------
@@ -97,7 +98,10 @@ def plot_frame_values(path,video_data):
     Returns
     -------
     image              : png
-                         a plot showing the value (y-axis) of each frame (x-axis) saved in your current 
+                         a plot showing the value (y-axis) of each frame (x-axis)
+
+    file               : csv
+                         a .csv file containing the (y-axis) values used to generate the plot mentioned above
     '''
     for video_dict in video_data: #Loop through the dictionaries in the list
         figure = plt.figure() #Create a plot
@@ -112,10 +116,10 @@ def plot_frame_values(path,video_data):
 
         ax.set_title(video_dict["fname"]) #Set the path of the file as the title
 
-        #Save the figure in the folder defined, with the name of the original file
+        #Save the figure in the folder defined, with the name of the original file and the percentile value used
         plt.savefig(path/ f'{video_dict["fname"]}_{video_dict["percentile"]}.png',dpi=300)
 
-        #Save the values in a .csv file in the folder defined, with the name of the original file
+        #Save the values in a .csv file in the folder defined, with the name of the original file and the percentile value used
         with open(f'{video_dict["fname"]}_{video_dict["percentile"]}.csv', 'w', newline='') as csvfile: #Create/open a csv file to save the data in
             writer = csv.writer(csvfile) #Prepare to write to the csv file
             for value in video_dict["values"]:
@@ -139,7 +143,7 @@ if __name__ == "__main__":
 
     video_files, no_files = identify_files(path) #Identify .mp4 files in the folder
     video_data = get_frame_values(video_files,percentile) #Get the chosen percentile pixel value for each frame
-    plot_frame_values(path,video_data) #Plot the pixel value for each frame and save it in the same folder as the video files
+    plot_frame_values(path,video_data) #Plot the pixel value for each frame and save the plot in the same folder as the video files along with a .csv file containing the values
 
     print("")
     print("Finished!")
