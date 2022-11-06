@@ -7,7 +7,7 @@ Identifies the Xth percentile pixel value (e.g. the 95th) in each frame of .mp4 
 This is useful to identify frames in which e.g. a light comes on in otherwise dark videos.
     - Loads .mp4 files from input folder specified towards the end of this script
     - Plots a percentile pixel value (specified towards the end of this script) for each frame, one plot per video file
-    
+    - Saves the percentile pixel values for each video file in a .csv file 
 """
 
 # Import necessities
@@ -118,7 +118,8 @@ def plot_frame_values(path,video_data):
         #Save the values in a .csv file in the folder defined, with the name of the original file
         with open(f'{video_dict["fname"]}_{video_dict["percentile"]}.csv', 'w', newline='') as csvfile: #Create/open a csv file to save the data in
             writer = csv.writer(csvfile) #Prepare to write to the csv file
-            writer.writerow(video_dict["values"]) #Save the values to the csv file
+            for value in video_dict["values"]:
+                writer.writerow([value]) #Save the values to the csv file
 
 
 # Main code
