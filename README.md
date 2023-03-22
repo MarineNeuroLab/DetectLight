@@ -6,6 +6,5 @@ All output is saved in the same folder as the inpupt folder.
 
 
 ### How to use
-1. Install dependencies (e.g. pip install -r requirements.txt)
-2. Specify the path to the folder containing video files and which percentile value to use in the "Input section" in detectlight.py (towards the end of the file)
-3. Run detectlight.py
+1. Install dependencies (e.g. pip install -r requirements.txt), use Python < 3.10.
+3. Run detectlight.py: `python detectlight.py --initial_path=PATH`. For all possible options, run `python detectlight.py --help`.
